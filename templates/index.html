@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método de Euler Mejorado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<body>
+    <div class="container">
+        <h1>Método de Euler Mejorado (Heun)</h1>
+        <form method="POST">
+            <label for="funcion">Función dy/dx = f(x, y):</label>
+            <input type="text" id="funcion" name="funcion" placeholder="Ej: x + y" required value="{{ funcion if funcion else '' }}">
+
+            <label for="x0">Valor inicial x0:</label>
+            <input type="number" step="any" id="x0" name="x0" required value="{{ x0 if x0 else 0 }}">
+
+            <label for="y0">Valor inicial y0:</label>
+            <input type="number" step="any" id="y0" name="y0" required value="{{ y0 if y0 else 1 }}">
+
+            <label for="h">Paso (h):</label>
+            <input type="number" step="any" id="h" name="h" required value="{{ h if h else 0.1 }}">
+
+            <label for="n">Número de pasos (n):</label>
+            <input type="number" id="n" name="n" required value="{{ n if n else 10 }}">
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if solucion %}
+            <h2>Resultados</h2>
+            <table>
+                <tr>
+                    <th>x</th>
+                    <th>y</th>
+                </tr>
+                {% for x, y in solucion %}
+                <tr>
+                    <td>{{ "%.4f"|format(x) }}</td>
+                    <td>{{ "%.6f"|format(y) }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
