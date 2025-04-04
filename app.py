@@ -1,17 +1,19 @@
-import os
 from flask import Flask, render_template
+import os
 
 app = Flask(__name__)
 
-# Tus rutas (ejemplo)
 @app.route('/')
 def home():
-    return render_template('index.html')
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        app.logger.error(f"Error loading template: {str(e)}")
+        return "Error loading page", 500
 
-# Configuración para Render
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Usa el puerto de Render o 5000 local
-    app.run(host="0.0.0.0", port=port)       # Escucha en todas las interfaces
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
 
 def euler_mejorado(f, x0, y0, h, n):
     """
