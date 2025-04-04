@@ -1,7 +1,17 @@
-from flask import Flask, render_template, request
-import numpy as np
+import os
+from flask import Flask, render_template
 
 app = Flask(__name__)
+
+# Tus rutas (ejemplo)
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+# Configuración para Render
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Usa el puerto de Render o 5000 local
+    app.run(host="0.0.0.0", port=port)       # Escucha en todas las interfaces
 
 def euler_mejorado(f, x0, y0, h, n):
     """
